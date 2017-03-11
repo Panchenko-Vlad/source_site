@@ -15,6 +15,6 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect('admin/user');
+        return $this->redirect(['/admin/user']);
     }
 }

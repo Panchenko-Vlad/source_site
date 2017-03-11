@@ -7,7 +7,6 @@ use app\models\Email;
 use app\models\LoginForm;
 use app\models\SignUpForm;
 use app\models\User;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\helpers\Url;
@@ -83,6 +82,7 @@ class AuthController extends Controller
         if ($user->activateAccount()) {
             $user->loginUser();
             Email::sendNewUser($user->getModelUser());
+            User::setFlashMessage('success', 'Спасибо за регистрацию!');
             return $this->redirect(['/site/index']);
         } else {
             User::setFlashMessage('error', 'Ошибка активации.');

@@ -70,12 +70,17 @@ class ArticleController extends Controller
     {
         $model = new Article();
 
-        if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
-            Email::sendArticle($model);
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', ['model' => $model]);
+        $image = new ImageUpload();
+
+        if (Yii::$app->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
+                $model->imageLoad($image);
+                Email::sendArticle($model);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        return $this->render('create', ['model' => $model, 'image' => $image]);
     }
 
     /**
@@ -88,11 +93,16 @@ class ArticleController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', ['model' => $model]);
+        $image = new ImageUpload();
+
+        if (Yii::$app->request->isPost) {
+            if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
+                $model->imageLoad($image);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        return $this->render('update', ['model' => $model, 'image' => $image]);
     }
 
     /**
@@ -135,9 +145,8 @@ class ArticleController extends Controller
 
         if (Yii::$app->request->isPost) {
             $article = $this->findModel($id);
-            $file = UploadedFile::getInstance($model, 'image');
 
-            if ($article->saveImage($model->uploadFile($file, $article->image))) {
+            if ($article->imageLoad($model)) {
                 return $this->redirect(['view', 'id' => $article->id]);
             }
         }

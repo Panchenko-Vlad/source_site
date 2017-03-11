@@ -6,6 +6,7 @@ use Yii;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "article".
@@ -45,7 +46,8 @@ class Article extends \yii\db\ActiveRecord
             [['title', 'description', 'content'], 'string'],
             [['date'], 'date', 'format' => 'php:Y-m-d'],
             [['date'], 'default', 'value' => date('Y-m-d')],
-            [['title'], 'string', 'max' => 255]
+            [['title'], 'string', 'max' => 255],
+            [['image'], 'file', 'extensions' => 'jpg,png']
         ];
     }
 
@@ -105,6 +107,13 @@ class Article extends \yii\db\ActiveRecord
     {
         $this->image = $fileName;
         return $this->save(false);
+    }
+
+    public function imageLoad(ImageUpload $model)
+    {
+        $file = UploadedFile::getInstance($model, 'image');
+
+        return $this->saveImage($model->uploadFile($file, $this->image));
     }
 
     /**
