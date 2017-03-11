@@ -2,6 +2,6 @@
 
 #### Затрачено времени: _9 дн._
 
-#### Резюме: _[сдесь](https://github.com/Panchenko-Vlad/source_site/Panchenko_CV.docx)_
+#### Резюме: _Panchenko_CV.docx_
 
 #### Дамп: _/config/news_site.sql_
