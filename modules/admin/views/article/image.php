@@ -12,6 +12,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'statusActive')->hiddenInput([
+        'id' => 'statusActive',
+        'value' => 1
+    ])->label(false) ?>
+
     <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
 
     <div class="form-group">

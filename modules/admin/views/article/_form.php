@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
-/* @var $imageUpload app\models\ImageUpload */
+/* @var $image app\models\ImageUpload */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -19,10 +19,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($image, 'statusActive')->hiddenInput([
+        'id' => 'statusActive',
+        'value' => 0
+    ])->label(false) ?>
+
     <?= $form->field($image, 'image')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'date')->textInput(['placeholder' => date('Y-m-d')]) ?>
-<!---->
+
 <!--    --><?//= $form->field($model, 'viewed')->textInput() ?>
 <!---->
 <!--    --><?//= $form->field($model, 'status')->textInput() ?>

@@ -109,6 +109,11 @@ class Article extends \yii\db\ActiveRecord
         return $this->save(false);
     }
 
+    /**
+     * Загружаем картинку и сохраняем в текущую модель
+     * @param ImageUpload $model
+     * @return bool
+     */
     public function imageLoad(ImageUpload $model)
     {
         $file = UploadedFile::getInstance($model, 'image');

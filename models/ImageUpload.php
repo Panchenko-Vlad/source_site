@@ -8,12 +8,18 @@ use Yii;
 
 class ImageUpload extends Model
 {
+    public $statusActive;
     public $image;
 
     public function rules()
     {
         return [
-            [['image'], 'required'],
+            [['statusActive'], 'string'],
+            [['image'], 'required', 'when' => function ($model) {
+                return $model->statusActive == '1';
+            }, 'whenClient' => "function(attribute, value) {
+                    return $('#statusActive').val() == '1';
+                }",],
             [['image'], 'file', 'extensions' => 'jpg,png']
         ];
     }

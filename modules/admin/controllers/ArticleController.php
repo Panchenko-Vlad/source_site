@@ -74,7 +74,9 @@ class ArticleController extends Controller
 
         if (Yii::$app->request->isPost) {
             if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
-                $model->imageLoad($image);
+
+                if (!empty($_FILES['ImageUpload']['name']['image'])) $model->imageLoad($image);
+
                 Email::sendArticle($model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -97,7 +99,9 @@ class ArticleController extends Controller
 
         if (Yii::$app->request->isPost) {
             if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
-                $model->imageLoad($image);
+
+                if (!empty($_FILES['ImageUpload']['name']['image'])) $model->imageLoad($image);
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
