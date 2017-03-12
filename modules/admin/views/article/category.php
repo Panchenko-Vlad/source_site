@@ -15,11 +15,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= Html::dropDownList('category', $selectedCategory, $categories, ['class' => 'form-control']) ?>
+    <label>
+        <h5><strong>Категория</strong></h5>
+        <?= Html::dropDownList('category', $selectedCategory, $categories, ['class' => 'form-control']) ?>
+    </label>
 
-    <div class="form-group">
-        <?= Html::submitButton('Готово', ['class' => 'btn btn-success']) ?>
-    </div>
+    <?= Html::submitButton('Готово', ['class' => 'btn btn-success']) ?>
 
     <?php ActiveForm::end(); ?>
 

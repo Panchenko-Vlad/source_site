@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
@@ -66,7 +67,16 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function getAll()
     {
-        return self::find()->all();
+        return Category::find()->all();
+    }
+
+    /**
+     * Получаем список всех категорий в виде ключ -> значение
+     * @return array
+     */
+    public static function getAllInArray()
+    {
+        return ArrayHelper::map(Category::getAll(), 'id', 'title');
     }
 
     /**

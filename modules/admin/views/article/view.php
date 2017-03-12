@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Изменить картинку', ['set-image', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
-        <?= Html::a('Установить категорию', ['set-category', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Изменить категорию', ['set-category', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -36,9 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:ntext',
             'date',
             'image',
-            'viewed',
-            'status',
-            'category_id',
+            'viewed', [
+                'label' => 'Статус',
+                'value' => function($data) {
+                    return $data->getStatus();
+                }
+            ], [
+                'label' => 'Категория',
+                'value' => function($data) {
+                    return $data->category->title;
+                }
+            ]
         ],
     ]) ?>
 

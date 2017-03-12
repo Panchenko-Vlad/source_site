@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($data) {
                     return Html::img($data->getImage(), ['width' => 200]);
                 }
-            ],[
+            ], [
                 'format' => 'html',
                 'label' => 'Доп. действия',
                 'value' => function($data) {

@@ -167,7 +167,7 @@ class ArticleController extends Controller
     {
         $article = $this->findModel($id);
         $selectedCategory = $article->category->id;
-        $categories = ArrayHelper::map(Category::find()->all(), 'id', 'title');
+        $categories = Category::getAllInArray();
 
         if (Yii::$app->request->isPost) {
             $category = Yii::$app->request->post('category');

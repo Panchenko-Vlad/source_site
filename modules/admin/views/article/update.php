@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
+/* @var $image app\models\ImageUpload */
 
 $this->title = 'Редактирование: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['index']];
