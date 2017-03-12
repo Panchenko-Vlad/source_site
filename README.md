@@ -1,7 +1,7 @@
 # Новостной сайт
 
-#### Затрачено времени: _9 дн._
+_Затрачено времени: **9 дн.**_
 
-#### Резюме: _Panchenko_CV.docx_
+_Резюме: **Panchenko_CV.docx**_
 
-#### Дамп: _/config/news_site.sql_
+_Дамп: **/config/news_site.sql**_
