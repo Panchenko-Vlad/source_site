@@ -287,7 +287,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Снятие рассылки на новые новости
+     * Снятие рассылки новых новостей на почту
      * @return bool
      */
     public function removeSendEmail()
@@ -297,7 +297,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Установка рассылки на новые новости
+     * Установка рассылки новых новостей на почту
      * @return bool
      */
     public function setupSendEmail()
@@ -305,6 +305,27 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $this->isSendEmail = User::ACTIVE;
         return $this->save(false);
     }
+
+    /**
+     * Снятие рассылки новых новостей в браузер
+     * @return bool
+     */
+    public function removeSendBrowser()
+    {
+        $this->isSendBrowser = User::NOT_ACTIVE;
+        return $this->save(false);
+    }
+
+    /**
+     * Установка рассылки новых новостей в браузер
+     * @return bool
+     */
+    public function setupSendBrowser()
+    {
+        $this->isSendBrowser = User::ACTIVE;
+        return $this->save(false);
+    }
+
 
     /**
      * Запрет на просмотр полных новостей

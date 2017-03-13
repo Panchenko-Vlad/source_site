@@ -170,6 +170,22 @@ class UserController extends Controller
         }
     }
 
+    public function actionRemoveSendBrowser($id)
+    {
+        $user = User::findOne($id);
+        if ($user->removeSendBrowser()) {
+            return $this->redirect('index');
+        }
+    }
+
+    public function actionSetupSendBrowser($id)
+    {
+        $user = User::findOne($id);
+        if ($user->setupSendBrowser()) {
+            return $this->redirect('index');
+        }
+    }
+
     public function actionDisallowFullNews($id)
     {
         $user = User::findOne($id);

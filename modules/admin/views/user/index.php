@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'label' => 'Админка',
                 'value' => function($data) {
-                    if ($data->isAdmin == 1) {
+                    if ($data->isAdmin) {
                         return Html::a(
                             (User::isYou($data->id)) ? '(Вы) active' : 'active',
                             [Url::toRoute(['user/remove-admin', 'id' => $data->id])],
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'label' => 'Статус активации',
                 'value' => function($data) {
-                    if ($data->status == 1) {
+                    if ($data->status) {
                         return Html::a(
                             (User::isYou($data->id)) ? '(Вы) active' : 'active',
                             [Url::toRoute(['user/remove-status', 'id' => $data->id])],
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'label' => 'Уведомление по почте',
                 'value' => function($data) {
-                    if ($data->isSendEmail == 1) {
+                    if ($data->isSendEmail) {
                         return Html::a(
                             (User::isYou($data->id)) ? '(Вы) active' : 'active',
                             [Url::toRoute(['user/remove-send-email', 'id' => $data->id])],
@@ -85,9 +85,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ], [
                 'format' => 'html',
+                'label' => 'Уведомление в браузере',
+                'value' => function($data) {
+                    if ($data->isSendBrowser) {
+                        return Html::a(
+                            (User::isYou($data->id)) ? '(Вы) active' : 'active',
+                            [Url::toRoute(['user/remove-send-browser', 'id' => $data->id])],
+
+                            ['class' => 'btn btn-success']
+                        );
+                    } else {
+                        return Html::a(
+                            'no active',
+                            [Url::toRoute(['user/setup-send-browser', 'id' => $data->id])],
+                            ['class' => 'btn btn-danger']
+                        );
+                    }
+                }
+            ], [
+                'format' => 'html',
                 'label' => 'Просмотр полной статьи',
                 'value' => function($data) {
-                    if ($data->isAllowFullNews == 1) {
+                    if ($data->isAllowFullNews) {
                         return Html::a(
                             (User::isYou($data->id)) ? '(Вы) Разрешено' : 'Разрешено',
                             [Url::toRoute(['user/disallow-full-news', 'id' => $data->id])],
