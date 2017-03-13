@@ -2,9 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
+use app\components\PushAll;
 use app\models\Category;
 use app\models\Email;
 use app\models\ImageUpload;
+use app\models\User;
 use Yii;
 use app\models\Article;
 use app\models\ArticleSearch;
@@ -76,6 +78,8 @@ class ArticleController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->saveArticle()) {
 
                 if (!empty($_FILES['ImageUpload']['name']['image'])) $model->imageLoad($image);
+
+                User::sendBrowserNotice($model);
 
                 Email::sendArticle($model);
                 return $this->redirect(['view', 'id' => $model->id]);

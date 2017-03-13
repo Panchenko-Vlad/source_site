@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
 /**
@@ -400,4 +401,26 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $session['pageSizeByCategory'] = $pageSize;
     }
 
+    /**
+     * Push-уведомления в браузере
+     * @param Article $article
+     */
+    public static function sendBrowserNotice(Article $article)
+    {
+        curl_setopt_array($ch = curl_init(), array(
+            CURLOPT_URL => "https://pushall.ru/api.php",
+            CURLOPT_POSTFIELDS => array(
+                "type" => "self",
+                "id" => "50986",
+                "key" => "482742413c8f222cfc4ecda5f61fc46a",
+                "title" => $article->title,
+                "text" => strip_tags($article->description),
+//                "icon" => Url::to('@app/web') . $article->getImage(), // не рекомендуется. Разве что маловесовые
+                "url" => Yii::$app->urlManager->createAbsoluteUrl(['/site/view', 'id' => $article->id])
+            ),
+            CURLOPT_RETURNTRANSFER => true
+        ));
+        $return = curl_exec($ch);
+        curl_close($ch);
+    }
 }

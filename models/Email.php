@@ -10,9 +10,9 @@ class Email extends Model
 {
     /**
      * Отправляем на почту новую новость всем пользователям, кто на это подписан
-     * @param model $article
+     * @param Article $article
      */
-    public static function sendArticle($article)
+    public static function sendArticle(Article $article)
     {
         $users = Email::getAllUsersForEmail();
 
@@ -40,11 +40,11 @@ class Email extends Model
 
     /**
      * Отправляем на почту ссылку для подтверждения аккаунта
-     * @param $email
-     * @param $user
+     * @param string $email
+     * @param User $user
      * @return bool
      */
-    public static function sendActivationEmail($email, $user)
+    public static function sendActivationEmail($email, User $user)
     {
         return Yii::$app->mailer->compose('activationEmail', ['user' => $user])
             ->setFrom([ChangeAccount::getSupportEmail() => Yii::$app->name])
@@ -56,9 +56,9 @@ class Email extends Model
 
     /**
      * Отправляем на почту информацию о новом пользователе всем админам, какие имеются в базе
-     * @param $newUser
+     * @param User $newUser
      */
-    public static function sendNewUser($newUser)
+    public static function sendNewUser(User $newUser)
     {
         $users = Email::getAllAdminsForEmail();
 
@@ -82,9 +82,9 @@ class Email extends Model
 
     /**
      * Отправляем на почту ссылку для изменения пароля пользователя
-     * @param $user
+     * @param User $user
      */
-    public static function sendLinkForChangePassword($user)
+    public static function sendLinkForChangePassword(User $user)
     {
         Yii::$app->mailer->compose('linkChangePassword', ['user' => $user])
             ->setFrom([ChangeAccount::getSupportEmail() => Yii::$app->name])
@@ -95,10 +95,10 @@ class Email extends Model
 
     /**
      * Отправляем пользователю его данные и новый пароль
-     * @param model $user
+     * @param User $user
      * @param string $newPassword
      */
-    public static function sendSuccessChangePassword($user, $newPassword)
+    public static function sendSuccessChangePassword(User $user, $newPassword)
     {
         Yii::$app->mailer->compose('changedPassword', ['user' => $user, 'newPassword' => $newPassword])
             ->setFrom([ChangeAccount::getSupportEmail() => Yii::$app->name])
