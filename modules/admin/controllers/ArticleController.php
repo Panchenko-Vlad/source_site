@@ -80,7 +80,6 @@ class ArticleController extends Controller
                 if (!empty($_FILES['ImageUpload']['name']['image'])) $model->imageLoad($image);
 
                 User::sendBrowserNotice($model);
-
                 Email::sendArticle($model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }

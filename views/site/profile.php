@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $user array */
+/* @var $user app\models\User */
 
 $this->title = 'Профиль';
 ?>
@@ -32,7 +32,18 @@ $this->title = 'Профиль';
                 <ul>
                     <li>Имя: <strong><?= $user->name ?></strong></li>
                     <li>E-mail: <strong><?= $user->email ?></strong></li>
-                    <li>Уведомления: <strong><?= $user->isSendEmail ? 'только на почту' : 'не получаю уведомлений'?></strong></li>
+                    <li>Уведомления:
+                        <strong>
+                            <?php if ($user->isSendEmail && $user->isSendBrowser): ?>
+                                на почту и браузер
+                            <?php elseif ($user->isSendEmail): ?>
+                                только на почту
+                            <?php elseif ($user->isSendBrowser): ?>
+                                только в браузер
+                            <?php else: ?>
+                                не получаю уведомлений
+                            <?php endif; ?>
+                        </strong></li>
                     <li>Просмотр полных новостей: <strong><?= $user->isAllowFullNews ? 'разрешен' : 'запрещен'?></strong></li>
                 </ul>
 
@@ -45,6 +56,7 @@ $this->title = 'Профиль';
                 ]); ?>
 
                 <?= $form->field($user, 'isSendEmail')->checkbox(['email' => 'Уведомлять о новых новостях через E-mail']) ?>
+                <?= $form->field($user, 'isSendBrowser')->checkbox(['browser' => 'Уведомлять о новых новостях через браузер']) ?>
 
                 <?= Html::submitButton('Сохранить', [
                     'class' => 'btn btn-primary',

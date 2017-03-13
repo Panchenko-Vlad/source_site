@@ -140,10 +140,12 @@ class SiteController extends Controller
             $post = Yii::$app->request->post();
 
             $userIsSendEmail = $post['User']['isSendEmail'];
+            $userIsSendBrowser = $post['User']['isSendBrowser'];
 
-            if (isset($userIsSendEmail)) {
+            if (isset($userIsSendEmail))
                 User::setSendEmail($userIsSendEmail);
-            }
+            if (isset($userIsSendBrowser))
+                User::setSendBrowser($userIsSendBrowser);
 
             $this->refresh();
         }

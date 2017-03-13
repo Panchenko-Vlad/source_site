@@ -16,6 +16,7 @@ use yii\web\IdentityInterface;
  * @property integer $isAdmin
  * @property integer $status
  * @property integer $isSendEmail
+ * @property integer $isSendBrowser
  * @property string $secret_key
  * @property string $isAllowFullNews
  *
@@ -64,6 +65,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'isAdmin' => 'Админ',
             'status' => 'Статус',
             'isSendEmail' => 'Уведомление по почте',
+            'isSendBrowser' => 'Уведомление через браузер',
             'secret_key' => 'Секретный ключ'
         ];
     }
@@ -325,7 +327,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Изменение состояние рассылки на новые новости
+     * Изменение состояние рассылки на новые новости через почту
      * @param int $value
      * @return bool
      */
@@ -333,6 +335,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         $user = User::findOne(Yii::$app->user->id);
         $user->isSendEmail = $value;
+        return $user->save();
+    }
+
+    /**
+     * Изменение состояние рассылки на новые новости через браузер
+     * @param int $value
+     * @return bool
+     */
+    public static function setSendBrowser($value)
+    {
+        $user = User::findOne(Yii::$app->user->id);
+        $user->isSendBrowser = $value;
         return $user->save();
     }
 
@@ -407,20 +421,22 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function sendBrowserNotice(Article $article)
     {
-        curl_setopt_array($ch = curl_init(), array(
-            CURLOPT_URL => "https://pushall.ru/api.php",
-            CURLOPT_POSTFIELDS => array(
-                "type" => "self",
-                "id" => "50986",
-                "key" => "482742413c8f222cfc4ecda5f61fc46a",
-                "title" => $article->title,
-                "text" => strip_tags($article->description),
+        if (Yii::$app->user->identity['isSendBrowser']) {
+            curl_setopt_array($ch = curl_init(), array(
+                CURLOPT_URL => "https://pushall.ru/api.php",
+                CURLOPT_POSTFIELDS => array(
+                    "type" => "self",
+                    "id" => "50986",
+                    "key" => "482742413c8f222cfc4ecda5f61fc46a",
+                    "title" => $article->title,
+                    "text" => strip_tags($article->description),
 //                "icon" => Url::to('@app/web') . $article->getImage(), // не рекомендуется. Разве что маловесовые
-                "url" => Yii::$app->urlManager->createAbsoluteUrl(['/site/view', 'id' => $article->id])
-            ),
-            CURLOPT_RETURNTRANSFER => true
-        ));
-        $return = curl_exec($ch);
-        curl_close($ch);
+                    "url" => Yii::$app->urlManager->createAbsoluteUrl(['/site/view', 'id' => $article->id])
+                ),
+                CURLOPT_RETURNTRANSFER => true
+            ));
+            $return = curl_exec($ch);
+            curl_close($ch);
+        }
     }
 }
