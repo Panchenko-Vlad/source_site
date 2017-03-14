@@ -72,18 +72,20 @@ $this->title = 'Новостной блог';
                 ]);
                 ?>
 
-                <div class="btn-group pull-right pageSize">
-                    <button type="button" class="btn btn-default"><?= User::getPageSize() ?></button>
-                    <button type="button" data-toggle="dropdown" class="btn btn-default"><span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><?= Html::a('1', ['site/change-page-size', 'pageSize' => 1]) ?></li>
-                        <li><?= Html::a('2', ['site/change-page-size', 'pageSize' => 2]) ?></li>
-                        <li><?= Html::a('3', ['site/change-page-size', 'pageSize' => 3]) ?></li>
-                        <li><?= Html::a('4', ['site/change-page-size', 'pageSize' => 4]) ?></li>
-                        <li><?= Html::a('5', ['site/change-page-size', 'pageSize' => 5]) ?></li>
-<!--                        <li class="divider"></li>-->
-                    </ul>
-                </div>
+                <?php if (!empty($articles)): ?>
+                    <div class="btn-group pull-right pageSize">
+                        <button type="button" class="btn btn-default"><?= User::getPageSize() ?></button>
+                        <button type="button" data-toggle="dropdown" class="btn btn-default"><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><?= Html::a('1', ['site/change-page-size', 'pageSize' => 1]) ?></li>
+                            <li><?= Html::a('2', ['site/change-page-size', 'pageSize' => 2]) ?></li>
+                            <li><?= Html::a('3', ['site/change-page-size', 'pageSize' => 3]) ?></li>
+                            <li><?= Html::a('4', ['site/change-page-size', 'pageSize' => 4]) ?></li>
+                            <li><?= Html::a('5', ['site/change-page-size', 'pageSize' => 5]) ?></li>
+                            <!--                        <li class="divider"></li>-->
+                        </ul>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <!-- Sidebar -->

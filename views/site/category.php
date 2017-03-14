@@ -59,33 +59,35 @@ $this->title = $category->title;
                 ]);
                 ?>
 
-                <div class="btn-group pull-right pageSize">
-                    <button type="button" class="btn btn-default"><?= User::getPageSizeByCategory() ?></button>
-                    <button type="button" data-toggle="dropdown" class="btn btn-default"><span class="caret"></span></button>
+                <?php if (!empty($articles)): ?>
+                    <div class="btn-group pull-right pageSize">
+                        <button type="button" class="btn btn-default"><?= User::getPageSizeByCategory() ?></button>
+                        <button type="button" data-toggle="dropdown" class="btn btn-default"><span class="caret"></span></button>
 
-                    <ul class="dropdown-menu">
-                        <li><?= Html::a('1', ['site/change-page-size-by-category',
-                                'pageSize' => 1,
-                                'category_id' => $category->id]) ?></li>
+                        <ul class="dropdown-menu">
+                            <li><?= Html::a('1', ['site/change-page-size-by-category',
+                                    'pageSize' => 1,
+                                    'category_id' => $category->id]) ?></li>
 
-                        <li><?= Html::a('2', ['site/change-page-size-by-category',
-                                'pageSize' => 2,
-                                'category_id' => $category->id]) ?></li>
+                            <li><?= Html::a('2', ['site/change-page-size-by-category',
+                                    'pageSize' => 2,
+                                    'category_id' => $category->id]) ?></li>
 
-                        <li><?= Html::a('3', ['site/change-page-size-by-category',
-                                'pageSize' => 3,
-                                'category_id' => $category->id]) ?></li>
+                            <li><?= Html::a('3', ['site/change-page-size-by-category',
+                                    'pageSize' => 3,
+                                    'category_id' => $category->id]) ?></li>
 
-                        <li><?= Html::a('4', ['site/change-page-size-by-category',
-                                'pageSize' => 4,
-                                'category_id' => $category->id]) ?></li>
+                            <li><?= Html::a('4', ['site/change-page-size-by-category',
+                                    'pageSize' => 4,
+                                    'category_id' => $category->id]) ?></li>
 
-                        <li><?= Html::a('5', ['site/change-page-size-by-category',
-                                'pageSize' => 5,
-                                'category_id' => $category->id]) ?></li>
-                        <!--                        <li class="divider"></li>-->
-                    </ul>
-                </div>
+                            <li><?= Html::a('5', ['site/change-page-size-by-category',
+                                    'pageSize' => 5,
+                                    'category_id' => $category->id]) ?></li>
+                            <!--                        <li class="divider"></li>-->
+                        </ul>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <!-- Sidebar -->
