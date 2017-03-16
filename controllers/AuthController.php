@@ -95,7 +95,7 @@ class AuthController extends Controller
     {
         $user = User::findOne($id);
         $user->generateSecretKey();
-        $user->save();
+        $user->save(false);
 
         Email::sendLinkForChangePassword($user);
 

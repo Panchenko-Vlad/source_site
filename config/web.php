@@ -42,8 +42,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'yii.site.news@gmail.com',
-                'password' => 'yii-site',
+                'username' => 'yii.site.news@gmail.com', // Support E-mail
+                'password' => 'yii-site', // Password
                 'port' => '587',
                 'encryption' => 'tls',
             ]

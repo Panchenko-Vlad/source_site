@@ -56,9 +56,9 @@ class Email extends Model
 
     /**
      * Отправляем на почту информацию о новом пользователе всем админам, какие имеются в базе
-     * @param User $newUser
+     * @param $newUser
      */
-    public static function sendNewUser(User $newUser)
+    public static function sendNewUser($newUser)
     {
         $users = Email::getAllAdminsForEmail();
 
@@ -95,10 +95,10 @@ class Email extends Model
 
     /**
      * Отправляем пользователю его данные и новый пароль
-     * @param User $user
+     * @param $user
      * @param string $newPassword
      */
-    public static function sendSuccessChangePassword(User $user, $newPassword)
+    public static function sendSuccessChangePassword($user, $newPassword)
     {
         Yii::$app->mailer->compose('changedPassword', ['user' => $user, 'newPassword' => $newPassword])
             ->setFrom([ChangeAccount::getSupportEmail() => Yii::$app->name])

@@ -42,11 +42,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['name', 'email', 'password'], 'required'],
-            [['isAdmin', 'status', 'isSendEmail', 'isAllowFullNews'], 'integer'],
+            [['name'], 'match', 'pattern' => '#^[a-z0-9_-]+$#i'],
             [['email'], 'email'],
             [['email'], 'unique'],
             [['name', 'email', 'password'], 'string', 'max' => 255],
-            ['secret_key', 'unique'],
+            [['isAdmin', 'status', 'isSendEmail', 'isAllowFullNews'], 'integer'],
+            [['secret_key'], 'unique'],
             [['status'], 'default', 'value' => User::ACTIVE, 'on' => 'default'],
             [['status'], 'default', 'value' => User::NOT_ACTIVE, 'on' => 'emailActivation']
         ];
@@ -356,7 +357,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         $user = User::findOne(Yii::$app->user->id);
         $user->isSendEmail = $value;
-        return $user->save();
+        return $user->save(false);
     }
 
     /**
@@ -368,7 +369,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         $user = User::findOne(Yii::$app->user->id);
         $user->isSendBrowser = $value;
-        return $user->save();
+        return $user->save(false);
     }
 
     /**
@@ -380,7 +381,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
         foreach ($users as $user) {
             $user->secret_key = null;
-            $user->save();
+            $user->save(false);
         }
     }
 
